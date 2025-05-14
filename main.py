@@ -4,13 +4,17 @@ from player import *
 from asteroid import *
 from asteroidfield import *
 from shot import *
+import time
 
 def main():
     pygame.init()
+    pygame.mixer.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     print("Starting Asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
+
+    ouch = pygame.mixer.Sound("ouch.wav")
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -44,6 +48,8 @@ def main():
         for obj in asteroids:
             if obj.check_collision(player):
                 print("Game over!")
+                ouch.play()
+                time.sleep(1)
                 sys.exit(0)
 
             for shot in shots:

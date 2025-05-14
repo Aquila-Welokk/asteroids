@@ -14,6 +14,8 @@ class CircleShape(pygame.sprite.Sprite):
         self.velocity = pygame.Vector2(0, 0)
         self.radius = radius
 
+        self.ouch = pygame.mixer.Sound("ouch.wav")
+
     def draw(self, screen):
         # sub-classes must override
         pass

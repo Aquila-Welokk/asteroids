@@ -10,6 +10,10 @@ class Player(CircleShape):
         self.radius = PLAYER_RADIUS
 
         self.timer = 0
+        self.w_held = False
+
+        self.pew = pygame.mixer.Sound("pew.wav")
+        self.wee = pygame.mixer.Sound("wee.wav")
 
     # in the player class
     def triangle(self):
@@ -38,6 +42,12 @@ class Player(CircleShape):
 
         if keys[pygame.K_w]:
             self.move(dt)
+            if not self.w_held:
+                self.w_held = True
+                self.wee.play()
+
+        else:
+            self.w_held = False
 
         if keys[pygame.K_s]:
             self.move(-dt)
@@ -52,4 +62,5 @@ class Player(CircleShape):
     def shoot(self, position):
         if self.timer <= 0:
             shot = Shot(self.position.x, self.position.y, self.rotation, SHOT_RADIUS)
+            self.pew.play()
             self.timer = PLAYER_SHOOT_COOLDOWN
